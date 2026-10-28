@@ -722,8 +722,8 @@ export class SolarSystem {
     this.sunLightingEnabled = enabled;
     if (enabled) {
       this.sunLight.intensity = 2.8;
-      this.ambientLight.intensity = 0.65;
-      if (this.cameraFillLight) this.cameraFillLight.intensity = 0.45;
+      this.ambientLight.intensity = 0.75;
+      if (this.cameraFillLight) this.cameraFillLight.intensity = 0.65;
       for (const mat of this.animatedMaterials) {
         if (mat.uniforms && mat.uniforms.uSunLightingEnabled) {
           mat.uniforms.uSunLightingEnabled.value = 1.0;
@@ -731,9 +731,9 @@ export class SolarSystem {
       }
     } else {
       // Uniform Classroom Inspection Mode: every continent, crater, and moon is brightly visible
-      this.sunLight.intensity = 0.8;
-      this.ambientLight.intensity = 1.8;
-      if (this.cameraFillLight) this.cameraFillLight.intensity = 1.0;
+      this.sunLight.intensity = 1.0;
+      this.ambientLight.intensity = 1.2;
+      if (this.cameraFillLight) this.cameraFillLight.intensity = 0.8;
       for (const mat of this.animatedMaterials) {
         if (mat.uniforms && mat.uniforms.uSunLightingEnabled) {
           mat.uniforms.uSunLightingEnabled.value = 0.0;

@@ -80,18 +80,18 @@ export function createAtmosphereMaterial({
       float NdotL = dot(worldNormal, sunDir);
 
       // 2. Sunward forward scattering boost (strongest on sunlit horizon)
-      float sunFactor = smoothstep(-0.35, 0.55, NdotL);
-      float sunGlow = rimGlow * sunFactor * 1.8;
+      float sunFactor = smoothstep(-0.25, 0.60, NdotL);
+      float sunGlow = rimGlow * sunFactor * 1.4;
 
-      // 3. Golden sunset/twilight flare on the sunward limb (matching user screenshot)
-      float sunsetFactor = smoothstep(-0.25, 0.15, NdotL) * (1.0 - smoothstep(0.15, 0.65, NdotL));
-      sunsetFactor = pow(sunsetFactor, 1.4) * 2.2;
+      // 3. Golden sunset/twilight flare right at the day-night horizon
+      float sunsetFactor = smoothstep(-0.15, 0.05, NdotL) * (1.0 - smoothstep(0.05, 0.30, NdotL));
+      sunsetFactor = pow(sunsetFactor, 1.5) * 1.8;
 
-      // Color transition: electric cyan/blue sky to rich golden/amber sunset
-      vec3 atmColor = mix(uDayColor, uSunsetColor, clamp(sunsetFactor, 0.0, 1.0));
+      // Color transition: electric cyan/blue sky to luminous champagne-gold sunset
+      vec3 atmColor = mix(uDayColor, uSunsetColor, clamp(sunsetFactor * 0.85, 0.0, 1.0));
 
       // Final opacity combines all-angle visibility with sunward brilliance
-      float alpha = (allAngleGlow + sunGlow + sunsetFactor * rimGlow * 0.8) * uIntensity;
+      float alpha = (allAngleGlow + sunGlow + sunsetFactor * rimGlow * 0.6) * uIntensity;
 
       if (alpha < 0.005) discard;
 

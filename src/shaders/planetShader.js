@@ -90,8 +90,8 @@ export function createPlanetMaterial({
       if (uSunLightingEnabled < 0.5) {
         // Uniform Classroom Mode: vibrant, fully-lit globe from all angles
         float rim = pow(1.0 - max(0.0, dot(normal, viewDir)), uFresnelPower);
-        vec3 rimColor = uGlowColor * rim * uFresnelIntensity * 0.6;
-        gl_FragColor = vec4(texColor.rgb * 1.25 + rimColor, 1.0);
+        vec3 rimColor = uGlowColor * rim * uFresnelIntensity * 0.35;
+        gl_FragColor = vec4(texColor.rgb * 1.05 + rimColor, 1.0);
         return;
       }
 
@@ -103,13 +103,13 @@ export function createPlanetMaterial({
 
       // All-angle atmospheric Fresnel edge glow (makes the edge luminous from EVERY angle)
       float fresnel = pow(1.0 - max(0.0, dot(normal, viewDir)), uFresnelPower);
-      float sunLimbBoost = smoothstep(-0.2, 0.6, NdotL) * 1.5;
+      float sunLimbBoost = smoothstep(-0.2, 0.6, NdotL) * 1.3;
       vec3 rimGlow = uGlowColor * fresnel * (0.45 + sunLimbBoost) * uFresnelIntensity;
 
       // Surface lighting:
       // Day side: full sunlight brilliance
       // Night side: soft starlight/ambient fill (32-35%), so features remain clearly visible
-      float lightIntensity = max(dayFactor, uAmbientIntensity) * 1.25;
+      float lightIntensity = max(dayFactor, uAmbientIntensity) * 1.15;
       vec3 illuminatedSurface = texColor.rgb * lightIntensity;
 
       // Combine surface radiance with atmospheric rim glow

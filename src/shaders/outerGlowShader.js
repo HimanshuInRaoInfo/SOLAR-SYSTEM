@@ -8,8 +8,8 @@ import * as THREE from 'three';
 export function createOuterGlowMaterial({
   color = '#ff9933',
   dayColor = '#4ca3ff',
-  glowPower = 2.0,
-  intensity = 1.6
+  glowPower = 1.6,
+  intensity = 1.8
 } = {}) {
   const uniforms = {
     uSunPosition: { value: new THREE.Vector3(0, 0, 0) },
